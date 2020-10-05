@@ -1,0 +1,34 @@
+{
+	"name": "@cfware/asterisk16",
+	"version": "0.1.0",
+	"description": "Run a sandboxed Asterisk 16 instance",
+	"type": "module",
+	"main": "index.js",
+	"exports": "./index.js",
+	"scripts": {
+		"test": "cfware-lint ."
+	},
+	"engines": {
+		"node": ">=14.0.0"
+	},
+	"author": "Corey Farrell",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cfware/asterisk16.git"
+	},
+	"bugs": {
+		"url": "https://github.com/cfware/asterisk16/issues"
+	},
+	"homepage": "https://github.com/cfware/asterisk16#readme",
+	"dependencies": {
+		"@cfware/fixture-run-directory": "^0.2.0",
+		"ami": "^1.0.0",
+		"p-map": "^4.0.0",
+		"vinyl-fs": "^3.0.3",
+		"which": "^2.0.2"
+	},
+	"devDependencies": {
+		"@cfware/lint": "^2.0.2"
+	}
+}
