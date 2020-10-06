@@ -227,6 +227,19 @@ export class AsteriskInstance extends FixtureRunDirectory {
 		await this.ami.connect();
 	}
 
+	get _refdebugLog() {
+		return this.astdir('astlogdir', 'refs');
+	}
+
+	async _refdebugEnabled() {
+		try {
+			await fs.stat(this._refdebugLog);
+			return true;
+		} catch {
+			return false;
+		}
+	}
+
 	async stop() {
 		if (!this.asteriskProcess) {
 			return;
@@ -234,6 +247,10 @@ export class AsteriskInstance extends FixtureRunDirectory {
 
 		const {asteriskProcess} = this;
 		this.asteriskProcess = undefined;
+
+		if (await this._refdebugEnabled()) {
+			await delay(6400);
+		}
 
 		await this.cliCommand('core stop gracefully').catch(() => {});
 		await asteriskProcess;
@@ -249,17 +266,14 @@ export class AsteriskInstance extends FixtureRunDirectory {
 
 	async checkStopped() {
 		const python = await which('python2');
-		const logFile = this.astdir('astlogdir', 'refs');
-		if (!(await fs.stat(logFile).catch(() => {}))) {
-			return;
+		if (await this._refdebugEnabled()) {
+			await execFile(python, [
+				path.join(__dirname, 'scripts/refcounter.py'),
+				'-f',
+				this._refdebugLog,
+				'-n'
+			]);
 		}
-
-		await execFile(python, [
-			path.join(__dirname, 'scripts/refcounter.py'),
-			'-f',
-			logFile,
-			'-n'
-		]);
 	}
 
 	cliCommand(command) {
