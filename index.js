@@ -249,10 +249,15 @@ export class AsteriskInstance extends FixtureRunDirectory {
 
 	async checkStopped() {
 		const python = await which('python2');
+		const logFile = this.astdir('astlogdir', 'refs');
+		if (!(await fs.stat(logFile).catch(() => {}))) {
+			return;
+		}
+
 		await execFile(python, [
 			path.join(__dirname, 'scripts/refcounter.py'),
 			'-f',
-			this.astdir('astlogdir', 'refs'),
+			logFile,
 			'-n'
 		]);
 	}
