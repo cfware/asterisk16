@@ -290,3 +290,29 @@ export class AsteriskInstance extends FixtureRunDirectory {
 		throw new Error('Failed to start asterisk');
 	}
 }
+
+export function setupIntegrationAMITesting(tap, integrationInstance, defaultInstanceID) {
+	const {Test} = tap;
+
+	Test.addAssert('checkAMIEvents', 2, async function ({instanceID, watch, expect, execute}, message, extra) {
+		const {ami} = integrationInstance[instanceID ?? defaultInstanceID];
+
+		watch = [].concat(watch).map(eventName => eventName.toLowerCase());
+		const events = [];
+		const listener = ({asObject}) => {
+			if (watch.includes(asObject.event.toLowerCase())) {
+				events.push(asObject);
+			}
+		};
+
+		ami.on('event', listener);
+		const result = await execute();
+		await delay(50);
+		ami.off('event', listener);
+
+		this.equal(events.length, expect.length, 'events.length matches', extra);
+		this.match(events, expect, message || 'events match', extra);
+
+		return result;
+	});
+}
