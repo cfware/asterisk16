@@ -305,11 +305,11 @@ export class AsteriskInstance extends FixtureRunDirectory {
 	}
 }
 
-export function setupIntegrationAMITesting(tap, integrationInstance, defaultInstanceID) {
+export function setupIntegrationAMITesting(tap, integrationInstance) {
 	const {Test} = tap;
 
 	Test.addAssert('checkAMIEvents', 2, async function ({instanceID, watch, expect, execute}, message, extra) {
-		const {ami} = integrationInstance[instanceID ?? defaultInstanceID];
+		const {ami} = integrationInstance[instanceID ?? 'defaultInstance'];
 
 		watch = [].concat(watch).map(eventName => eventName.toLowerCase());
 		const events = [];
