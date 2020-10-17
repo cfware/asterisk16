@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/cfware/asterisk16/compare/v0.1.1...v0.1.2) (2020-10-17)
+
+
+### Features
+
+* Use IntegrationInstance#defaultInstance ([a52d75a](https://github.com/cfware/asterisk16/commit/a52d75aa32f716e3d5aa94586a87b3a4a8b674f7))
+
 ### [0.1.1](https://github.com/cfware/asterisk16/compare/v0.1.0...v0.1.1) (2020-10-06)
 
 
