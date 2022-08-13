@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/env python3
 """Process a ref debug log for memory usage
 
  This will provide information about total and peak

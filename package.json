@@ -9,7 +9,7 @@
 		"test": "cfware-lint ."
 	},
 	"engines": {
-		"node": ">=14.0.0"
+		"node": ">=16.12.0"
 	},
 	"author": "Corey Farrell",
 	"license": "MIT",
@@ -23,12 +23,12 @@
 	"homepage": "https://github.com/cfware/asterisk16#readme",
 	"dependencies": {
 		"@cfware/fixture-run-directory": "^0.2.0",
-		"ami": "^1.0.0",
-		"p-map": "^4.0.0",
-		"vinyl-fs": "^3.0.3",
-		"which": "^2.0.2"
+		"ami": "^1",
+		"p-map": "^5",
+		"vinyl-fs": "^3",
+		"which": "^2"
 	},
 	"devDependencies": {
-		"@cfware/lint": "^2.0.2"
+		"@cfware/lint": "^3"
 	}
 }

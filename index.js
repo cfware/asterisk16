@@ -1,13 +1,14 @@
 /* eslint no-await-in-loop: 0 */
-import path from 'path';
-import fs from 'fs/promises';
-import {createWriteStream} from 'fs';
-import {once, EventEmitter} from 'events';
-import childProcess from 'child_process';
-import stream from 'stream';
-import {promisify} from 'util';
-import {fileURLToPath} from 'url';
-import {createServer} from 'net';
+import path from 'node:path';
+import fs from 'node:fs/promises';
+import {createWriteStream} from 'node:fs';
+import {once, EventEmitter} from 'node:events';
+import childProcess from 'node:child_process';
+import {pipeline} from 'node:stream/promises';
+import {promisify} from 'node:util';
+import {fileURLToPath} from 'node:url';
+import {createServer} from 'node:net';
+import {setTimeout} from 'node:timers/promises';
 
 import AMI from 'ami';
 import pMap from 'p-map';
@@ -16,8 +17,6 @@ import vinylFS from 'vinyl-fs';
 import {FixtureRunDirectory} from '@cfware/fixture-run-directory';
 
 const execFile = promisify(childProcess.execFile);
-const pipeline = promisify(stream.pipeline);
-const delay = promisify(setTimeout);
 
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
 
@@ -249,7 +248,7 @@ export class AsteriskInstance extends FixtureRunDirectory {
 		this.asteriskProcess = undefined;
 
 		if (await this._refdebugEnabled()) {
-			await delay(6400);
+			await setTimeout(6400);
 		}
 
 		await this.cliCommand('core stop gracefully').catch(() => {});
@@ -265,7 +264,7 @@ export class AsteriskInstance extends FixtureRunDirectory {
 	}
 
 	async checkStopped() {
-		const python = await which('python2');
+		const python = await which('python3');
 		if (await this._refdebugEnabled()) {
 			await execFile(python, [
 				path.join(__dirname, 'scripts/refcounter.py'),
@@ -293,7 +292,7 @@ export class AsteriskInstance extends FixtureRunDirectory {
 		let attempt = 0;
 		while (attempt < 100) {
 			try {
-				await delay(100);
+				await setTimeout(100);
 				await this.cliCommand('core waitfullybooted');
 				return;
 			} catch {
@@ -321,7 +320,7 @@ export function setupIntegrationAMITesting(tap, integrationInstance) {
 
 		ami.on('event', listener);
 		const result = await execute();
-		await delay(50);
+		await setTimeout(50);
 		ami.off('event', listener);
 
 		this.equal(events.length, expect.length, 'events.length matches', extra);
