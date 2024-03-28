@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/cfware/asterisk16/compare/v0.1.2...v1.0.0) (2024-03-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* Require node.js 16.12.0
+
+### Features
+
+* Dependency update ([d2df0a2](https://github.com/cfware/asterisk16/commit/d2df0a27b47bb839659fd00460b71a3058a2c26c))
+
 ### [0.1.2](https://github.com/cfware/asterisk16/compare/v0.1.1...v0.1.2) (2020-10-17)
 
 

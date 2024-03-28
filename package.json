@@ -1,6 +1,6 @@
 {
 	"name": "@cfware/asterisk16",
-	"version": "0.1.2",
+	"version": "1.0.0",
 	"description": "Run a sandboxed Asterisk 16 instance",
 	"type": "module",
 	"main": "index.js",
